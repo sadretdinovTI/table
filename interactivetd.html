@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Интерактивные таблицы</title>
+ </head>
+ <body>  
+  <table width="100%" border="1" cellspacing="0" cellpadding="4">
+   <caption>Таблица 3.2. Иконки М и Ж</caption>  
+   <tr> 
+    <th>&nbsp;</th><th>Чебурашка</th>
+    <th>Крокодил Гена</th><th>Шапокляк</th>
+   </tr>
+   <tr> 
+    <td>Съел, пнд.</td>
+	<td><span class="dynamic"><img src="гига.png"><img src="гига.png"><img src="малой.png"></span></td>
+	<td><span class="dynamic"><img src="жен.png"><img src="гига.png"><img src="дева.png"></span></td>
+	<td><span class="dynamic"><img src="жен.png"><img src="гига.png"><img src="малой.png"></span></td>
+   </tr>
+   <tr> 
+    <td>Съел, вторник.</td>
+	<td><span class="dynamic"><img src="жен.png"><img src="гига.png"><img src="дева.png"></span></td>
+	<td><span class="dynamic"><img src="жен.png"><img src="гига.png"><img src="малой.png"></span></td>
+	<td><span class="dynamic"><img src="жен.png"><img src="гига.png"><img src="дева.png"></span></td>
+   </tr>
+   <tr> 
+    <td>Съел, среда</td>
+	<td><span class="dynamic"><img src="жен.png"><img src="гига.png"><img src="дева.png"></span></td>
+	<td><span class="dynamic"><img src="жен.png"><img src="гига.png"><img src="малой.png"></span></td>
+	<td><span class="dynamic"><img src="жен.png"><img src="гига.png"><img src="дева.png"></span></td>
+   </tr>
+  </table>
+ </body>
+</html>
+
+
+
+
+<script>
+
+var elems = document.getElementsByClassName("dynamic"),
+ trampInput = document.createElement("input");
+ istdselect = false;
+            trampInput.type = "text";
+            trampInput.style.width = "128px";
+            trampInput.addEventListener("blur", function() {
+				let innerText = trampInput.value;
+				innerText = innerText.replace( /Ж/gi, "<img src=\"жен.png\">" );
+				innerText = innerText.replace( /Г/gi, "<img src=\"гига.png\">" );
+				innerText = innerText.replace( /М/gi, "<img src=\"малой.png\">" );	
+				innerText = innerText.replace( /Д/gi, "<img src=\"дева.png\">" );				
+				trampInput.parentNode.innerHTML = innerText;
+				istdselect = false;	
+			}
+            , false);
+for (var i=0; i<elems.length; i++) {
+    var el = elems[i];
+    el.addEventListener("click", function() {
+        if (istdselect) return;
+		istdselect = true;
+		let innerText = this.innerHTML;
+		innerText = innerText.replace( /<img src=\"жен.png\">/gi, "Ж" );
+		innerText = innerText.replace( /<img src=\"гига.png\">/gi, "Г" );
+		innerText = innerText.replace( /<img src=\"малой.png\">/gi, "М" );	
+		innerText = innerText.replace( /<img src=\"дева.png\">/gi, "Д" );
+        trampInput.value = innerText;
+        this.innerHTML = "";
+        this.appendChild(trampInput);
+        trampInput.focus();
+        trampInput.select()
+		}.bind(el), false);
+	};
+	
+</script>
